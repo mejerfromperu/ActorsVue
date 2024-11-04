@@ -11,17 +11,26 @@
 <body>
     <div id="app">
         <div class="nav-bar">
-            <h1>{{ intro }}</h1>
             <p>skib</p>
+
+            <div v-for="actor in actors">
+                {{ actor }}
+        
+            </div>
         </div>
     </div>
+    
 
+      
     <!-- Import App -->
-    <script src="main.js"></script> 
+    <script type="module" src="main.js"></script> 
     <script> 
         const mountedApp = app.mount('#app')
     </script>
+    
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </html>
 
 
