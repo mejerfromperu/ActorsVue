@@ -1,15 +1,11 @@
 const app = Vue.createApp({
     data() {
         return {
-            actors:[]
-            // actors: {
-            //     name: '',
-            //     id: '',
-            //     birthday: '',
-            // },
-            // newName: null,
-            // newId: null,
-            // newBirthday: null
+            actors:[],
+            
+            newName: '',
+            newId: null,
+            newBirthday: null
         }
 
 
@@ -21,7 +17,27 @@ const app = Vue.createApp({
     methods: { 
         myMethod() {
             axios.get('http://localhost:5154/Api/Actors').then(response => {this.actors = response.data})
+            
+            axios.post('http://localhost:5154/Api/Actors', newActor)
+                .then(response => {
+                    
+                    this.actors.push(response.data);
+                    
+                })
         },
+
+        addActor() {
+            const newActor = {
+                name: this.newName,
+                birthYear: this.newBirthday,
+                id: this.newId
+            };
+            this.actors.push(newActor);
+
+            this.newName = "";
+            this.newBirthday = null;
+
+        }
 
         
     },
