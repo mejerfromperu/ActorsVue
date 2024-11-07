@@ -5,7 +5,8 @@ const app = Vue.createApp({
             
             newName: '',
             newId: null,
-            newBirthday: null
+            newBirthday: null,
+            IdDelete: null
         }
 
 
@@ -16,7 +17,8 @@ const app = Vue.createApp({
 
     methods: { 
         Get() {
-            axios.get('http://localhost:5154/Api/Actors').then(response => {this.actors = response.data})
+            axios.get('http://localhost:5154/Api/Actors')
+            .then(response => {this.actors = response.data})
             
             
         },
@@ -24,7 +26,7 @@ const app = Vue.createApp({
         addActor() {
             const newActor = {
                 name: this.newName,
-                birthYear: this.newBirthday,
+                birthDay: this.newBirthday,
                 id: this.newId
             };
             // this.actors.push(newActor);
@@ -36,7 +38,20 @@ const app = Vue.createApp({
                 })
             this.newName = "";
             this.newBirthday = null;
+            this.newId = null;
 
+        },
+
+        deleteActor() {
+            const deletionId = {
+                id: this.IdDelete
+            }
+
+            axios.Delete('http://localhost:5154/Api/Actors', deletionId)
+            .then(response => {
+                this.IdDelete.push(response.data)
+            })
+            this.IdDelete = null;
         }
 
         

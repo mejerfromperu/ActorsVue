@@ -2,3 +2,9 @@ h1 {
     font-size: 30px;
     color: red;
 }
+
+body {
+    background-color: chartreuse;
+
+    color: white;
+}
