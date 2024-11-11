@@ -6,9 +6,15 @@ const app = Vue.createApp({
             newName: '',
             newId: null,
             newBirthday: null,
-            IdDelete: null
+            IdDelete: null,
+            api: 'https://actorone.azurewebsites.net/api/actor',
+            getId: null,
+            actor: null,
+            updateById: null,
+            UpdatenewName: '',
+            UpdatenewBirthday: null,
+            UpdatenewId: null,
         }
-
 
     },
     mounted() {
@@ -17,10 +23,32 @@ const app = Vue.createApp({
 
     methods: { 
         Get() {
-            axios.get('http://localhost:5154/Api/Actors')
+            axios.get('https://actorone.azurewebsites.net/api/actor')
             .then(response => {this.actors = response.data})
             
             
+        },
+
+        Update() {
+            const UpdateActor = {
+                name: this.UpdatenewName,
+                birthDay: this.UpdatenewBirthday,
+                id: this.updateById
+            };
+            axios.put(`https://actorone.azurewebsites.net/api/actor/${this.updateById}`, UpdateActor)
+                .then(response => {
+                    this.actors.push(response.data)
+                    const index = this.actors.findIndex(actor => actor.id === response.data.id);
+                if (index !== -1) {
+                    this.actors.splice(index, 1, response.data);  
+                    
+                } else {
+                    this.actors.push(response.data);  // If actor not found, add to the list
+                }
+                    
+                })
+
+
         },
 
         addActor() {
@@ -30,7 +58,7 @@ const app = Vue.createApp({
                 id: this.newId
             };
             // this.actors.push(newActor);
-            axios.post('http://localhost:5154/Api/Actors', newActor)
+            axios.post('https://actorone.azurewebsites.net/api/actor/', newActor)
                 .then(response => {
                     
                     this.actors.push(response.data);
@@ -43,16 +71,40 @@ const app = Vue.createApp({
         },
 
         deleteActor() {
-            const deletionId = {
-                id: this.IdDelete
-            }
-
-            axios.Delete('http://localhost:5154/Api/Actors', deletionId)
+            const deletionId = this.IdDelete
+            console.log("id set")
+            axios.delete('https://actorone.azurewebsites.net/api/actor/' + deletionId)
             .then(response => {
-                this.IdDelete.push(response.data)
+                console.log("succes")
+                this.IdDelete = null
+                
+                
             })
-            this.IdDelete = null;
+            .catch(error => {
+                console.error("Error deleting actor:", error);
+            });
+            
+        },
+
+        GetById() {
+            const getbyid = this.getId;
+            
+            if (!getbyid) {
+                console.error("ID is required");
+                return;
+            }
+        
+            axios.get(`https://actorone.azurewebsites.net/api/actor/${getbyid}`)
+                .then(response => {
+                    console.log("Success:", response.data); 
+                    this.getId = null; 
+                    this.actor = response.data;
+                })
+                .catch(error => {
+                    console.error("Error fetching actor:", error); // Error handling
+                });
         }
+        
 
         
     },
