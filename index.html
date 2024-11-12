@@ -12,55 +12,55 @@
 </head>
 <body>
     <div id="app" class="container my-5">
-        <h1 class="text-center mb-4">Actor List</h1>
+        <h1 id="headline" class="text-center mb-4">Actor List</h1>
         
         <!-- Form to Add New Actor -->
-        <div class="card p-3 mb-4">
+        <div id="blackcl" class="card p-3 mb-4" >
             <div class="input-group mb-3">
                 <input v-model="newName" type="text" class="form-control" placeholder="Actorname">
                 <input v-model="newBirthday" type="text" class="form-control" placeholder="Birthday">
                 <input v-model.number="newId" type="number" class="form-control" placeholder="ID">
-                <button v-on:click="addActor" class="btn btn-danger">Add Person</button>
+                <button v-on:click="addActor" class="btn btn-success">Add Person</button>
             </div>
         </div>
 
         <!-- Form to update Actor -->
-        <div class="card p-3 mb-4">
+        <div id="blackcl" class="card p-3 mb-4">
             <div class="input-group mb-3">
                 <input v-model.number="updateById" type="number" class="form-control" placeholder="Actor ID"/>
                 <input v-model="UpdatenewName" type="text" class="form-control" placeholder="Actor Name"/>
                 <input v-model="UpdatenewBirthday" type="text" class="form-control" placeholder="Birthday"/>
                 <!-- Removed unused input field 'UpdatenewId' -->
-                <button @click="Update" class="btn btn-danger">Update Person</button>
+                <button @click="Update" class="btn btn-success">Update Person</button>
             </div>
         </div>
         
         <!-- delete actor -->
-        <div class="card p-3 mb-4">
+        <div id="blackcl" class="card p-3 mb-4">
             <div class="input-group mb-3">
                
                 <input v-model.number="IdDelete" type="number" class="form-control" placeholder="ID">
-                <button v-on:click="deleteActor" class="btn btn-danger">Id for Deletion</button>
+                <button v-on:click="deleteActor" class="btn btn-success">Id for Deletion</button>
             </div>
         </div>
 
         <!-- GetById -->
         <div class="card">
-            <input v-model.number="getId" type="number" class="form-control"/>
-            <button v-on:click="GetById" class="btn btn-warning">Get Person</button>
+            <input v-model.number="getId" type="number" class="form-control" placeholder="Inter the ID only!"/>
+            <button v-on:click="GetById" class="btn btn-success">Get Person</button>
         </div>
 
         <div v-if="actor">
             <div class="card" style="color: black; background-color: brown;">
                 <h3>Actor Details</h3>
-                <p><strong>Name:</strong> {{ actor.id }}</p>
-                <p><strong>Birth Year:</strong> {{ actor.name }}</p>
-                <p><strong>ID:</strong> {{ actor.birthYear }}</p>
+                <p><strong>Name:</strong> {{ actor.name }}</p>
+                <p><strong>Birth Year:</strong> {{ actor.birthYear }}</p>
+                <p><strong>ID:</strong> {{ actor.id }}</p>
             </div>
         </div>
         
         <!-- Actor List -->
-        <div class="card">
+        <div id="blackcl" class="card">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" v-for="actor in actors" :key="actor.id">
                     <h4 class="mb-2">Personal ID: {{ actor.id }}</h4>

@@ -1,10 +1,26 @@
-h1 {
-    font-size: 30px;
-    color: red;
-}
+
 
 body {
-    background-color: chartreuse;
+    background-color: rgb(231, 246, 158);
 
     color: white;
+    text-shadow: rgb(1, 125, 12) 1px 0 10px;
+
+}
+
+
+#blackcl {
+    background-color: black;
+}
+
+
+#headline {
+
+    font-size: 100px;
+    color: rgb(38, 136, 68);
+    text-shadow: rgb(1, 125, 12) 1px 0 10px;
+}
+
+#addshadows {
+    text-shadow: rgb(1, 125, 12) 1px 0 10px;
 }

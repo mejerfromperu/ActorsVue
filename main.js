@@ -1,3 +1,5 @@
+const baseurl = 'https://actorone.azurewebsites.net/api/actor'
+
 const app = Vue.createApp({
     data() {
         return {
@@ -23,8 +25,11 @@ const app = Vue.createApp({
 
     methods: { 
         Get() {
-            axios.get('https://actorone.azurewebsites.net/api/actor')
+            axios.get(baseurl)
             .then(response => {this.actors = response.data})
+            .catch(error => {
+                console.error("Error getting the data:", error);
+            });
             
             
         },
@@ -37,13 +42,14 @@ const app = Vue.createApp({
             };
             axios.put(`https://actorone.azurewebsites.net/api/actor/${this.updateById}`, UpdateActor)
                 .then(response => {
-                    this.actors.push(response.data)
                     const index = this.actors.findIndex(actor => actor.id === response.data.id);
                 if (index !== -1) {
                     this.actors.splice(index, 1, response.data);  
+                    this.updateById = null,
+                    this.UpdatenewName = '',
+                    this.UpdatenewBirthday = null
+                
                     
-                } else {
-                    this.actors.push(response.data);  // If actor not found, add to the list
                 }
                     
                 })
@@ -58,7 +64,7 @@ const app = Vue.createApp({
                 id: this.newId
             };
             // this.actors.push(newActor);
-            axios.post('https://actorone.azurewebsites.net/api/actor/', newActor)
+            axios.post(baseurl, newActor)
                 .then(response => {
                     
                     this.actors.push(response.data);
@@ -101,7 +107,7 @@ const app = Vue.createApp({
                     this.actor = response.data;
                 })
                 .catch(error => {
-                    console.error("Error fetching actor:", error); // Error handling
+                    console.error("Error sorry: invalid id ", error); 
                 });
         }
         
