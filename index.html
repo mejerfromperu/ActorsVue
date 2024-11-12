@@ -55,6 +55,15 @@
             </div>
         </div>
 
+        <!-- lowyear highyear -->
+        <div class="card">
+            <input v-model.number="lowyear" type="number" class="form-control" placeholder="Enter lowyear"/>
+            <input v-model.number="highyear" type="number" class="form-control" placeholder="Enter highyear"/>
+            <button v-on:click="Filter" class="btn btn-success">Filter</button>
+            
+        </div>
+        
+
         <div v-if="actor">
             <div class="card" style="color: black; background-color: brown;">
                 <h3>Actor Details</h3>
@@ -67,7 +76,16 @@
             <button class="btn btn-success" v-on:click="Sort">sorter</button>
             <button class="btn btn-success" v-on:click="UnSort">unsort</button>
         </div>
-        <div>
+        <!-- filteractors List -->
+        <div v-if="filter" id="blackcl" class="card">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" v-for="actor in filter" :key="actor.id">
+                    <h4 class="mb-2">Personal ID: {{ actor.id }}</h4>
+                    <p><strong>Name of actor:</strong> {{ actor.name }}</p>
+                    <p><strong>Birth Year:</strong> {{ actor.birthYear }}</p>
+
+                </li>
+            </ul>
         </div>
         <!-- Actor List -->
         <div v-if="!sortedactors || sortedactors.length === 0" id="blackcl" class="card">

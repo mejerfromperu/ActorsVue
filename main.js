@@ -5,7 +5,7 @@ const app = Vue.createApp({
         return {
             actors:[],
             sortedactors:[],
-            
+            filter:[],
             newName: '',
             newId: null,
             newBirthday: null,
@@ -18,6 +18,9 @@ const app = Vue.createApp({
             UpdatenewBirthday: null,
             UpdatenewId: null,
             errormsg: '',
+            lowyear: '',
+            highyear: '',
+
         }
 
     },
@@ -144,8 +147,17 @@ const app = Vue.createApp({
             .catch(error => {
                 console.error("Error getting the data:", error);
             });
-        }
+        },
         
+        Filter() {
+            axios.get(`https://actorone.azurewebsites.net/api/actor/serve/${lowyear,highyear}`)
+            .then(response => {this.filter = response.data
+                console.log("succes")
+            })
+            .catch(error => {
+                console.log("fail")
+            })
+        }
 
         
     },
