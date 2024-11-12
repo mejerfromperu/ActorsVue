@@ -133,6 +133,17 @@ const app = Vue.createApp({
                     console.log(error.response.data)
                     console.log("fail")
                 })
+        },
+
+        UnSort() {
+            axios.get(baseurl)
+            .then(response => { 
+                this.actors = response.data;
+                this.sortedactors = [];
+            })
+            .catch(error => {
+                console.error("Error getting the data:", error);
+            });
         }
         
 
