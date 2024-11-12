@@ -4,6 +4,7 @@ const app = Vue.createApp({
     data() {
         return {
             actors:[],
+            sortedactors:[],
             
             newName: '',
             newId: null,
@@ -16,6 +17,7 @@ const app = Vue.createApp({
             UpdatenewName: '',
             UpdatenewBirthday: null,
             UpdatenewId: null,
+            errormsg: '',
         }
 
     },
@@ -48,9 +50,13 @@ const app = Vue.createApp({
                     this.updateById = null,
                     this.UpdatenewName = '',
                     this.UpdatenewBirthday = null
-                
-                    
+
+
+                .catch(error => {
+                    console.error("error trying to update!", error)
+                })    
                 }
+                
                     
                 })
 
@@ -70,6 +76,9 @@ const app = Vue.createApp({
                     this.actors.push(response.data);
                     
                 })
+                .catch(error => {
+                    console.error("error trying to add new object")
+                })
             this.newName = "";
             this.newBirthday = null;
             this.newId = null;
@@ -81,13 +90,13 @@ const app = Vue.createApp({
             console.log("id set")
             axios.delete('https://actorone.azurewebsites.net/api/actor/' + deletionId)
             .then(response => {
-                console.log("succes")
+                console.log("succes actor deleted")
                 this.IdDelete = null
                 
                 
             })
             .catch(error => {
-                console.error("Error deleting actor:", error);
+                console.error("Error deleting actor!!", error);
             });
             
         },
@@ -108,7 +117,22 @@ const app = Vue.createApp({
                 })
                 .catch(error => {
                     console.error("Error sorry: invalid id ", error); 
+                    this.errormsg = "Sorrry invalid id";
                 });
+        },
+
+        Sort() {
+            axios.get(`https://actorone.azurewebsites.net/api/actor/sort/`)
+                .then(response => {this.sortedactors = response.data
+                    
+                    console.log("success:", response.data)
+                
+                    
+                })
+                .catch (error => {
+                    console.log(error.response.data)
+                    console.log("fail")
+                })
         }
         
 

@@ -43,11 +43,16 @@
                 <button v-on:click="deleteActor" class="btn btn-success">Id for Deletion</button>
             </div>
         </div>
+        
+        
 
         <!-- GetById -->
         <div class="card">
             <input v-model.number="getId" type="number" class="form-control" placeholder="Inter the ID only!"/>
             <button v-on:click="GetById" class="btn btn-success">Get Person</button>
+            <div v-if="errormsg">
+                <p style="color: red;"> {{errormsg}}</p>
+            </div>
         </div>
 
         <div v-if="actor">
@@ -58,14 +63,31 @@
                 <p><strong>ID:</strong> {{ actor.id }}</p>
             </div>
         </div>
-        
+        <div>
+            <button class="btn btn-success" v-on:click="Sort">sorter</button>
+        </div>
         <!-- Actor List -->
-        <div id="blackcl" class="card">
+        <div v-if="!sortedactors || sortedactors.length === 0" id="blackcl" class="card">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" v-for="actor in actors" :key="actor.id">
                     <h4 class="mb-2">Personal ID: {{ actor.id }}</h4>
                     <p><strong>Name of actor:</strong> {{ actor.name }}</p>
                     <p><strong>Birth Year:</strong> {{ actor.birthYear }}</p>
+
+                </li>
+            </ul>
+        </div>
+
+        
+
+         <!-- sortedActor List -->
+         <div v-if="sortedactors" id="blackcl" class="card">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" v-for="actor in sortedactors" :key="actor.id">
+                    <h4 class="mb-2">Personal ID: {{ actor.id }}</h4>
+                    <p><strong>Name of actor:</strong> {{ actor.name }}</p>
+                    <p><strong>Birth Year:</strong> {{ actor.birthYear }}</p>
+
                 </li>
             </ul>
         </div>
